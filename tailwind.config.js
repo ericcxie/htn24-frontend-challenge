@@ -5,6 +5,7 @@ module.exports = {
     extend: {
       colors: {
         background: "#141425",
+        primary: "#C4CDCF",
       },
       fontFamily: {
         satoshi: ["Satoshi", "sans-serif"],
