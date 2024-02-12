@@ -17,6 +17,14 @@ const EventCard: React.FC<EventCardProps> = ({
   speakers,
   eventType,
 }) => {
+  const limitDescription = (desc: string, limit: number) => {
+    const words = desc.split(" ");
+    if (words.length > limit) {
+      return words.slice(0, limit).join(" ") + "...";
+    }
+    return desc;
+  };
+
   return (
     <div className="flex flex-col bg-gray-50 p-4 rounded-lg shadow-sm">
       {/* Displaying the start and end time */}
@@ -31,7 +39,7 @@ const EventCard: React.FC<EventCardProps> = ({
       <h2 className="text-xl font-satoshiBold mt-2">{name}</h2>
       {description && (
         <p className="text-satoshi font-satoshiLight text-gray-600 mt-1">
-          {description}
+          {limitDescription(description, 30)}
         </p>
       )}
 
