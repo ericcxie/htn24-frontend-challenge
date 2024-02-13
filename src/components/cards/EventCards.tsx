@@ -1,7 +1,6 @@
 import React from "react";
-import { FaScrewdriverWrench } from "react-icons/fa6";
 import { FaMicrophoneAlt } from "react-icons/fa";
-import { FaPaintbrush } from "react-icons/fa6";
+import { FaPaintbrush, FaScrewdriverWrench } from "react-icons/fa6";
 
 type EventCardProps = {
   name: string;
@@ -38,7 +37,7 @@ const EventCard: React.FC<EventCardProps> = ({
   };
 
   return (
-    <div className="flex items-center bg-gray-50 p-4 rounded-lg shadow-sm">
+    <div className="flex flex-col sm:flex-row items-center bg-gray-50 p-4 rounded-lg shadow-sm">
       {/* Square with date and time */}
       <div
         className={`flex flex-col justify-center items-center text-white p-4 rounded-lg min-w-32 h-32 ${

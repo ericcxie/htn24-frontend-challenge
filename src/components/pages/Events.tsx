@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
-import Header from "../header/Header";
+import { BeatLoader } from "react-spinners";
 import EventCard from "../cards/EventCards";
 import SearchBar from "../elements/SearchBar";
+import Header from "../header/Header";
 
 // Define the structure of the event data
 export type TEvent = {
@@ -20,12 +21,19 @@ export type TEvent = {
 
 const Events: React.FC = () => {
   const [eventsData, setEventsData] = useState<TEvent[]>([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     fetch("https://api.hackthenorth.com/v3/events")
       .then((response) => response.json())
-      .then((data) => setEventsData(data))
-      .catch((error) => console.error("Error:", error));
+      .then((data) => {
+        setEventsData(data);
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.error("Error fetching events:", error);
+        setLoading(false);
+      });
   }, []);
 
   const formatEventTime = (
@@ -61,22 +69,28 @@ const Events: React.FC = () => {
           <div className="flex flex-col space-y-4 p-4 rounded-xl">
             <SearchBar />
             <div className="overflow-y-auto max-h-[30rem] rounded-xl space-y-4">
-              {eventsData
-                .sort((a, b) => a.start_time - b.start_time)
-                .map((event) => (
-                  <EventCard
-                    key={event.id}
-                    name={event.name}
-                    startTime={formatEventTime(event.start_time).time}
-                    endTime={formatEventTime(event.end_time).time}
-                    date={formatEventTime(event.start_time).date}
-                    description={event.description}
-                    speakers={event.speakers
-                      .map((speaker) => speaker.name)
-                      .join(", ")}
-                    eventType={event.event_type}
-                  />
-                ))}
+              {loading ? (
+                <div className="flex justify-center items-center h-full w-full">
+                  <BeatLoader color="#C4CDCF" loading={loading} size={15} />
+                </div>
+              ) : (
+                eventsData
+                  .sort((a, b) => a.start_time - b.start_time)
+                  .map((event) => (
+                    <EventCard
+                      key={event.id}
+                      name={event.name}
+                      startTime={formatEventTime(event.start_time).time}
+                      endTime={formatEventTime(event.end_time).time}
+                      date={formatEventTime(event.start_time).date}
+                      description={event.description}
+                      speakers={event.speakers
+                        .map((speaker) => speaker.name)
+                        .join(", ")}
+                      eventType={event.event_type}
+                    />
+                  ))
+              )}
             </div>
           </div>
         </div>
