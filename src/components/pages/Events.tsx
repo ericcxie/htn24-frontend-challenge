@@ -28,9 +28,25 @@ const Events: React.FC = () => {
       .catch((error) => console.error("Error:", error));
   }, []);
 
-  const formatEventTime = (timestamp: number): string => {
-    // Format the timestamp to a readable date-time format
-    return new Date(timestamp).toLocaleString();
+  const formatEventTime = (
+    timestamp: number
+  ): { date: string; time: string } => {
+    // Create a new Date object from the timestamp
+    const eventDate = new Date(timestamp);
+
+    // Format the date and time separately
+    const date = eventDate.toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "short",
+      day: "numeric",
+    });
+    const time = eventDate.toLocaleTimeString("en-US", {
+      hour: "numeric",
+      minute: "2-digit",
+      hour12: true,
+    });
+
+    return { date, time };
   };
 
   return (
@@ -45,19 +61,22 @@ const Events: React.FC = () => {
           <div className="flex flex-col space-y-4 p-4 rounded-xl">
             <SearchBar />
             <div className="overflow-y-auto max-h-[30rem] rounded-xl space-y-4">
-              {eventsData.map((event) => (
-                <EventCard
-                  key={event.id}
-                  name={event.name}
-                  startTime={formatEventTime(event.start_time)}
-                  endTime={formatEventTime(event.end_time)}
-                  description={event.description}
-                  speakers={event.speakers
-                    .map((speaker) => speaker.name)
-                    .join(", ")}
-                  eventType={event.event_type}
-                />
-              ))}
+              {eventsData
+                .sort((a, b) => a.start_time - b.start_time)
+                .map((event) => (
+                  <EventCard
+                    key={event.id}
+                    name={event.name}
+                    startTime={formatEventTime(event.start_time).time}
+                    endTime={formatEventTime(event.end_time).time}
+                    date={formatEventTime(event.start_time).date}
+                    description={event.description}
+                    speakers={event.speakers
+                      .map((speaker) => speaker.name)
+                      .join(", ")}
+                    eventType={event.event_type}
+                  />
+                ))}
             </div>
           </div>
         </div>
