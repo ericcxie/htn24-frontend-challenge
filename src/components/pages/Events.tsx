@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { BeatLoader } from "react-spinners";
-import EventCard from "../cards/EventCards";
+import EventCard from "../cards/EventCard";
 import SearchBar from "../elements/SearchBar";
 import Header from "../header/Header";
 

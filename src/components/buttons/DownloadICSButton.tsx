@@ -14,9 +14,6 @@ const DownloadICSButton: React.FC<DownloadICSButtonProps> = ({
   start,
   end,
 }) => {
-  console.log("start", start);
-  console.log("end", end);
-
   const event = {
     title: title,
     description: description,

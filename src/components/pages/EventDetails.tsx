@@ -4,6 +4,8 @@ import { FaPaintbrush, FaScrewdriverWrench } from "react-icons/fa6";
 import { Link, useParams } from "react-router-dom";
 import DownloadICSButton from "../buttons/DownloadICSButton";
 import Header from "../header/Header";
+import { BeatLoader } from "react-spinners";
+import RelatedEventCard from "../cards/RelatedEventsCard";
 
 export type TEvent = {
   id: number;
@@ -70,15 +72,17 @@ const EventDetails: React.FC = () => {
   }, [id]);
 
   if (isLoading) {
-    return <div>Loading...</div>;
-  }
-
-  if (error) {
-    return <div>Error: {error}</div>;
+    <div className="flex justify-center items-center h-full w-full">
+      <BeatLoader color="#C4CDCF" loading={isLoading} size={15} />
+    </div>;
   }
 
   if (!eventData) {
-    return <div>No event data found.</div>;
+    return (
+      <div className="flex justify-center items-center h-full w-full">
+        <p>{error}</p>
+      </div>
+    );
   }
 
   return (
@@ -125,31 +129,42 @@ const EventDetails: React.FC = () => {
             <p className="font-bold">Description:</p>
             <p>{eventData.description}</p>
           </div>
-          <div className="my-4">
-            <h2 className="font-semibold">Speakers:</h2>
-            <ul>
-              {eventData.speakers.map((speaker) => (
-                <li key={speaker.name}>{speaker.name}</li>
-              ))}
-            </ul>
-          </div>
-          <div className="my-4">
-            <h2 className="font-semibold">Related Events:</h2>
-            <div className="flex flex-wrap">
-              {eventData.related_events.map((eventId) => (
-                <Link
-                  to={`/${eventId}/${encodeURIComponent(
-                    eventData.name.replace(/\s+/g, "_")
-                  )}`}
-                  key={eventId}
-                  className="m-2 p-2 bg-gray-200 rounded hover:bg-gray-300"
-                >
-                  {/* Placeholder for related event name */}
-                  Event {eventId}
-                </Link>
-              ))}
+          {eventData.speakers && eventData.speakers.length > 0 && (
+            <div className="my-4">
+              <h2 className="font-semibold">Speakers:</h2>
+              <ul>
+                {eventData.speakers.map((speaker) => (
+                  <li key={speaker.name}>{speaker.name}</li>
+                ))}
+              </ul>
             </div>
-          </div>
+          )}
+          {eventData.related_events && eventData.related_events.length > 0 && (
+            <div className="my-4">
+              <h2 className="font-semibold">Related Events:</h2>
+              <div className="flex flex-wrap">
+                {eventData.related_events.map((eventId) => (
+                  <Link
+                    to={`/${eventId}/${encodeURIComponent(
+                      eventData.name.replace(/\s+/g, "_")
+                    )}`}
+                    key={eventId}
+                    className="m-2 p-2 bg-gray-200 rounded hover:bg-gray-300"
+                  >
+                    {/* Placeholder for related event name */}
+                    Event {eventId}
+                  </Link>
+                ))}
+                <RelatedEventCard
+                  eventName={eventData.name}
+                  eventType={formatEventType(eventData.event_type)}
+                  date={formatEventTime(eventData.start_time).date}
+                  startTime={formatEventTime(eventData.start_time).time}
+                  endTime={formatEventTime(eventData.end_time).time}
+                />
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </div>
