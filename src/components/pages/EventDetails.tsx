@@ -4,6 +4,8 @@ import Header from "../header/Header";
 import { Link } from "react-router-dom";
 import { FaMicrophoneAlt } from "react-icons/fa";
 import { FaPaintbrush, FaScrewdriverWrench } from "react-icons/fa6";
+import { createEvent } from "ics";
+import { saveAs } from "file-saver";
 
 export type TEvent = {
   id: number;
@@ -20,7 +22,6 @@ export type TEvent = {
 };
 
 const formatEventTime = (timestamp: number): { date: string; time: string } => {
-  // Create a new Date object from the timestamp
   const eventDate = new Date(timestamp);
 
   // Format the date and time separately
