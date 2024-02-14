@@ -22,6 +22,7 @@ export type TEvent = {
 const Events: React.FC = () => {
   const [eventsData, setEventsData] = useState<TEvent[]>([]);
   const [loading, setLoading] = useState(true);
+  const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
     fetch("https://api.hackthenorth.com/v3/events")
@@ -67,7 +68,7 @@ const Events: React.FC = () => {
             Events
           </h1>
           <div className="flex flex-col space-y-4 p-4 rounded-xl">
-            <SearchBar />
+            <SearchBar onSearch={(term) => setSearchQuery(term)} />
             <div className="overflow-y-auto max-h-[30rem] rounded-xl space-y-4">
               {loading ? (
                 <div className="flex justify-center items-center h-full w-full">
@@ -75,6 +76,9 @@ const Events: React.FC = () => {
                 </div>
               ) : (
                 eventsData
+                  .filter((event) =>
+                    event.name.toLowerCase().includes(searchQuery.toLowerCase())
+                  )
                   .sort((a, b) => a.start_time - b.start_time)
                   .map((event) => (
                     <EventCard
