@@ -11,7 +11,7 @@ const AppRouter: React.FC = () => {
       <Routes>
         <Route path="/" element={<Events />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/events/:id" element={<EventDetails />} />
+        <Route path="/:id/:name" element={<EventDetails />} />
       </Routes>
     </Router>
   );

@@ -1,8 +1,10 @@
 import React from "react";
 import { FaMicrophoneAlt } from "react-icons/fa";
 import { FaPaintbrush, FaScrewdriverWrench } from "react-icons/fa6";
+import { Link } from "react-router-dom";
 
 type EventCardProps = {
+  id: number;
   name: string;
   startTime: string;
   endTime: string;
@@ -13,6 +15,7 @@ type EventCardProps = {
 };
 
 const EventCard: React.FC<EventCardProps> = ({
+  id,
   name,
   startTime,
   endTime,
@@ -59,7 +62,12 @@ const EventCard: React.FC<EventCardProps> = ({
       {/* Event details */}
       <div className="flex flex-col ml-4 flex-grow justify-between">
         <div className="">
-          <h2 className="text-xl font-satoshiBold">{name}</h2>
+          <Link
+            to={`/${id}/${encodeURIComponent(name.replace(/\s+/g, "_"))}`}
+            className="text-lg font-bold font-satoshiBold text-black hover:underline"
+          >
+            {name}
+          </Link>
           <p className="text-sm font-satoshiMedium text-gray-500 mt-1 flex items-center">
             {eventType === "workshop" && (
               <FaScrewdriverWrench className="mr-1" />

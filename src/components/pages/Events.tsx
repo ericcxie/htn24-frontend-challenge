@@ -61,7 +61,6 @@ const Events: React.FC = () => {
   return (
     <div className="bg-white min-h-screen">
       <Header />
-
       <div className="flex flex-col items-center py-3">
         <div className="w-full max-w-4xl px-6 rounded-lg">
           <h1 className="text-4xl font-bold font-satoshiBold text-black py-5 border-b border-gray-200">
@@ -82,6 +81,7 @@ const Events: React.FC = () => {
                   .sort((a, b) => a.start_time - b.start_time)
                   .map((event) => (
                     <EventCard
+                      id={event.id}
                       key={event.id}
                       name={event.name}
                       startTime={formatEventTime(event.start_time).time}
