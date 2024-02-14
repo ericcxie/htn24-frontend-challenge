@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import Header from "../header/Header";
-import { Link } from "react-router-dom";
 import { FaMicrophoneAlt } from "react-icons/fa";
 import { FaPaintbrush, FaScrewdriverWrench } from "react-icons/fa6";
-import { createEvent } from "ics";
-import { saveAs } from "file-saver";
+import { Link, useParams } from "react-router-dom";
+import DownloadICSButton from "../buttons/DownloadICSButton";
+import Header from "../header/Header";
 
 export type TEvent = {
   id: number;
@@ -91,23 +89,38 @@ const EventDetails: React.FC = () => {
           <h1 className="text-4xl font-bold font-satoshiBold text-black py-5 border-b border-gray-200">
             {eventData.name}
           </h1>
-          <p className="text-sm font-satoshiMedium text-gray-500 mt-1 flex items-center">
-            {eventData.event_type === "workshop" && (
-              <FaScrewdriverWrench className="mr-1" />
-            )}
-            {eventData.event_type === "tech_talk" && (
-              <FaMicrophoneAlt className="mr-1" />
-            )}
-            {eventData.event_type === "activity" && (
-              <FaPaintbrush className="mr-1" />
-            )}
-            {formatEventType(eventData.event_type)}
-          </p>
-          <p className="my-2">{formatEventTime(eventData.start_time).date} </p>
-          <p>
-            {formatEventTime(eventData.start_time).time} -{" "}
-            {formatEventTime(eventData.end_time).time}
-          </p>
+
+          <div className="flex flex-row justify-between items-start mt-3">
+            <div className="flex flex-col justify-center">
+              <p className="text-sm font-satoshiMedium text-gray-500 flex items-center">
+                {eventData.event_type === "workshop" && (
+                  <FaScrewdriverWrench className="mr-1" />
+                )}
+                {eventData.event_type === "tech_talk" && (
+                  <FaMicrophoneAlt className="mr-1" />
+                )}
+                {eventData.event_type === "activity" && (
+                  <FaPaintbrush className="mr-1" />
+                )}
+                {formatEventType(eventData.event_type)}
+              </p>
+              <p className="my-2">
+                {formatEventTime(eventData.start_time).date}{" "}
+              </p>
+              <p>
+                {formatEventTime(eventData.start_time).time} -{" "}
+                {formatEventTime(eventData.end_time).time}
+              </p>
+            </div>
+            <div>
+              <DownloadICSButton
+                title={eventData.name}
+                description={eventData.description}
+                start={eventData.start_time}
+                end={eventData.end_time}
+              />
+            </div>
+          </div>
           <div className="my-2">
             <p className="font-bold">Description:</p>
             <p>{eventData.description}</p>

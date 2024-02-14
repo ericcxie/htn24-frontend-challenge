@@ -1,9 +1,9 @@
 import React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 
+import EventDetails from "../components/pages/EventDetails";
 import Events from "../components/pages/Events";
 import Login from "../components/pages/Login";
-import EventDetails from "../components/pages/EventDetails";
 
 const AppRouter: React.FC = () => {
   return (

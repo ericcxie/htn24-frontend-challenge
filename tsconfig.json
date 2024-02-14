@@ -2,7 +2,8 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./*"]
+      "@/*": ["./*"],
+      "react-icalendar-link": ["src/types/react-icalendar-link"]
     },
     "target": "es5",
     "lib": ["dom", "dom.iterable", "esnext"],
