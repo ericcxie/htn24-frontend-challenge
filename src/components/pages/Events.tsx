@@ -4,6 +4,8 @@ import EventCard from "../cards/EventCard";
 import SearchBar from "../elements/SearchBar";
 import Header from "../header/Header";
 
+import TabComponent from "../elements/EventsTab";
+
 // Define the structure of the event data
 export type TEvent = {
   id: number;
@@ -23,6 +25,7 @@ const Events: React.FC = () => {
   const [eventsData, setEventsData] = useState<TEvent[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState("");
+  const [activeTab, setActiveTab] = useState("public");
 
   useEffect(() => {
     fetch("https://api.hackthenorth.com/v3/events")
@@ -58,6 +61,10 @@ const Events: React.FC = () => {
     return { date, time };
   };
 
+  const filteredEvents = eventsData.filter(
+    (event) => event.permission === activeTab
+  );
+
   return (
     <div className="bg-white min-h-screen">
       <Header />
@@ -68,13 +75,14 @@ const Events: React.FC = () => {
           </h1>
           <div className="flex flex-col space-y-4 p-4 rounded-xl">
             <SearchBar onSearch={(term) => setSearchQuery(term)} />
+            <TabComponent activeTab={activeTab} setActiveTab={setActiveTab} />
             <div className="overflow-y-auto max-h-[30rem] rounded-xl space-y-4">
               {loading ? (
                 <div className="flex justify-center items-center h-full w-full">
                   <BeatLoader color="#C4CDCF" loading={loading} size={15} />
                 </div>
               ) : (
-                eventsData
+                filteredEvents
                   .filter((event) =>
                     event.name.toLowerCase().includes(searchQuery.toLowerCase())
                   )
