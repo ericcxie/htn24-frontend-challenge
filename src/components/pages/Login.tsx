@@ -4,6 +4,9 @@ const Login: React.FC = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  const validEmail = "johnsmith@gmail.com";
+  const validPassword = "password";
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
   };
@@ -56,9 +59,13 @@ const Login: React.FC = () => {
           <div>
             <button
               type="submit"
-              className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+              className="relative inline-block w-full px-4 py-2 font-medium group"
             >
-              Sign in
+              <span className="absolute rounded-lg inset-0 w-full h-full transition duration-200 ease-out transform translate-x-1 translate-y-1 bg-gradient-to-r from-orange-400 to-fuchsia-500 group-hover:-translate-x-0 group-hover:-translate-y-0"></span>
+              <span className="absolute rounded-lg inset-0 w-full h-full bg-white border-2 border-black group-hover:bg-gradient-to-r from-orange-400 to-fuchsia-500"></span>
+              <span className="relative text-black group-hover:text-white">
+                Log in
+              </span>
             </button>
           </div>
         </form>

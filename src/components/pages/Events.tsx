@@ -70,12 +70,14 @@ const Events: React.FC = () => {
       <Header />
       <div className="flex flex-col items-center py-3">
         <div className="w-full max-w-4xl px-6 rounded-lg">
-          <h1 className="text-4xl font-bold font-satoshiBold text-black py-5 border-b border-gray-200">
+          <h1 className="text-4xl font-bold font-satoshiBold text-black pt-5 pb-2 border-b border-gray-200">
             Events
           </h1>
-          <div className="flex flex-col space-y-4 p-4 rounded-xl">
-            <SearchBar onSearch={(term) => setSearchQuery(term)} />
-            <TabComponent activeTab={activeTab} setActiveTab={setActiveTab} />
+          <div className="flex flex-col space-y-4 pb-4 pt-1 rounded-xl">
+            <div className="space-y-2">
+              <SearchBar onSearch={(term) => setSearchQuery(term)} />
+              <TabComponent activeTab={activeTab} setActiveTab={setActiveTab} />
+            </div>
             <div className="overflow-y-auto max-h-[30rem] rounded-xl space-y-4">
               {loading ? (
                 <div className="flex justify-center items-center h-full w-full">
