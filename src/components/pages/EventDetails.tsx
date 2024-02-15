@@ -49,6 +49,7 @@ const formatEventType = (eventType: string) => {
 const EventDetails: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const [eventData, setEventData] = useState<TEvent | null>(null);
+  const [relatedEventsData, setRelatedEventsData] = useState<TEvent[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState("");
 
@@ -63,6 +64,22 @@ const EventDetails: React.FC = () => {
       })
       .then((data) => {
         setEventData(data);
+
+        // Get the related events
+        const relatedEvents = data.related_events;
+
+        // Make a request for each related event
+        const requests = relatedEvents.map((eventId: string) =>
+          fetch(`https://api.hackthenorth.com/v3/events/${eventId}`)
+        );
+
+        // Use Promise.all to wait for all requests to complete
+        return Promise.all(requests)
+          .then((responses) => Promise.all(responses.map((res) => res.json())))
+          .then((relatedEventsData) => {
+            // relatedEventsData is an array of the responses from the second requests
+            setRelatedEventsData(relatedEventsData);
+          });
       })
       .catch((error) => {
         console.error("Error:", error);
@@ -70,6 +87,9 @@ const EventDetails: React.FC = () => {
       })
       .finally(() => setIsLoading(false));
   }, [id]);
+
+  console.log("eventdata", eventData);
+  console.log("related", relatedEventsData);
 
   if (isLoading) {
     <div className="flex justify-center items-center h-full w-full">
@@ -139,29 +159,28 @@ const EventDetails: React.FC = () => {
               </ul>
             </div>
           )}
-          {eventData.related_events && eventData.related_events.length > 0 && (
-            <div className="my-4">
+
+          {relatedEventsData.length > 0 && (
+            <div className="my-2">
               <h2 className="font-semibold">Related Events:</h2>
-              <div className="flex flex-wrap">
-                {eventData.related_events.map((eventId) => (
+              <div className="flex flex-wrap space-x-2 mt-2 mb-4">
+                {relatedEventsData.map((event) => (
                   <Link
-                    to={`/${eventId}/${encodeURIComponent(
-                      eventData.name.replace(/\s+/g, "_")
+                    to={`/${event.id}/${encodeURIComponent(
+                      event.name.replace(/\s+/g, "_")
                     )}`}
-                    key={eventId}
-                    className="m-2 p-2 bg-gray-200 rounded hover:bg-gray-300"
+                    key={event.id}
                   >
-                    {/* Placeholder for related event name */}
-                    Event {eventId}
+                    <RelatedEventCard
+                      key={event.id}
+                      eventName={event.name}
+                      eventType={formatEventType(event.event_type)}
+                      date={formatEventTime(event.start_time).date}
+                      startTime={formatEventTime(event.start_time).time}
+                      endTime={formatEventTime(event.end_time).time}
+                    />
                   </Link>
                 ))}
-                <RelatedEventCard
-                  eventName={eventData.name}
-                  eventType={formatEventType(eventData.event_type)}
-                  date={formatEventTime(eventData.start_time).date}
-                  startTime={formatEventTime(eventData.start_time).time}
-                  endTime={formatEventTime(eventData.end_time).time}
-                />
               </div>
             </div>
           )}
