@@ -5,12 +5,20 @@ import EventDetails from "../components/pages/EventDetails";
 import Events from "../components/pages/Events";
 import Login from "../components/pages/Login";
 
-const AppRouter: React.FC = () => {
+interface AppRouterProps {
+  isLoggedIn: boolean;
+  setIsLoggedIn: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+const AppRouter: React.FC<AppRouterProps> = ({ isLoggedIn, setIsLoggedIn }) => {
   return (
     <Router>
       <Routes>
         <Route path="/" element={<Events />} />
-        <Route path="/login" element={<Login />} />
+        <Route
+          path="/login"
+          element={<Login setIsLoggedIn={setIsLoggedIn} />}
+        />
         <Route path="/:id/:name" element={<EventDetails />} />
       </Routes>
     </Router>

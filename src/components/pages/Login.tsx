@@ -1,6 +1,10 @@
 import React, { useState } from "react";
 
-const Login: React.FC = () => {
+interface LoginProps {
+  setIsLoggedIn: (loggedIn: boolean) => void;
+}
+
+const Login: React.FC<LoginProps> = ({ setIsLoggedIn }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -9,6 +13,13 @@ const Login: React.FC = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    if (email === validEmail && password === validPassword) {
+      setIsLoggedIn(true);
+      // Optionally redirect the user or handle post-login actions
+    } else {
+      // Handle login failure (e.g., show an error message)
+      alert("Invalid credentials"); // Simple alert, replace with a better error handling
+    }
   };
 
   return (
