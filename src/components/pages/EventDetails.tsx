@@ -21,6 +21,11 @@ export type TEvent = {
   related_events: number[];
 };
 
+type EventsProps = {
+  isLoggedIn: boolean;
+  setIsLoggedIn: (loggedIn: boolean) => void;
+};
+
 const formatEventTime = (timestamp: number): { date: string; time: string } => {
   const eventDate = new Date(timestamp);
 
@@ -46,7 +51,7 @@ const formatEventType = (eventType: string) => {
     .join(" ");
 };
 
-const EventDetails: React.FC = () => {
+const EventDetails: React.FC<EventsProps> = ({ isLoggedIn, setIsLoggedIn }) => {
   const { id } = useParams<{ id: string }>();
   const [eventData, setEventData] = useState<TEvent | null>(null);
   const [relatedEventsData, setRelatedEventsData] = useState<TEvent[]>([]);
@@ -107,7 +112,7 @@ const EventDetails: React.FC = () => {
 
   return (
     <div className="bg-white min-h-screen">
-      <Header />
+      <Header isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
       <div className="flex flex-col items-center py-10 font-satoshiMedium">
         <div className="w-full max-w-4xl px-6 rounded-lg bg-gray-50">
           <h1 className="text-4xl font-bold font-satoshiBold text-black py-5 border-b border-gray-200">

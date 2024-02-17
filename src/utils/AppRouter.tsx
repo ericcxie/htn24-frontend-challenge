@@ -14,12 +14,25 @@ const AppRouter: React.FC<AppRouterProps> = ({ isLoggedIn, setIsLoggedIn }) => {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<Events />} />
+        <Route
+          path="/"
+          element={
+            <Events isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
+          }
+        />
         <Route
           path="/login"
           element={<Login setIsLoggedIn={setIsLoggedIn} />}
         />
-        <Route path="/:id/:name" element={<EventDetails />} />
+        <Route
+          path="/:id/:name"
+          element={
+            <EventDetails
+              isLoggedIn={isLoggedIn}
+              setIsLoggedIn={setIsLoggedIn}
+            />
+          }
+        />
       </Routes>
     </Router>
   );

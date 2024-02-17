@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 interface LoginProps {
   setIsLoggedIn: (loggedIn: boolean) => void;
@@ -11,11 +12,13 @@ const Login: React.FC<LoginProps> = ({ setIsLoggedIn }) => {
   const validEmail = "johnsmith@gmail.com";
   const validPassword = "password";
 
+  const navigate = useNavigate();
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (email === validEmail && password === validPassword) {
       setIsLoggedIn(true);
-      // Optionally redirect the user or handle post-login actions
+      navigate("/");
     } else {
       // Handle login failure (e.g., show an error message)
       alert("Invalid credentials"); // Simple alert, replace with a better error handling
