@@ -93,9 +93,6 @@ const EventDetails: React.FC<EventsProps> = ({ isLoggedIn, setIsLoggedIn }) => {
       .finally(() => setIsLoading(false));
   }, [id]);
 
-  console.log("eventdata", eventData);
-  console.log("related", relatedEventsData);
-
   if (isLoading) {
     <div className="flex justify-center items-center h-full w-full">
       <BeatLoader color="#C4CDCF" loading={isLoading} size={15} />
@@ -106,6 +103,28 @@ const EventDetails: React.FC<EventsProps> = ({ isLoggedIn, setIsLoggedIn }) => {
     return (
       <div className="flex justify-center items-center h-full w-full">
         <p>{error}</p>
+      </div>
+    );
+  }
+
+  if (!isLoggedIn && eventData.permission === "private") {
+    return (
+      <div className="flex flex-col justify-center items-center h-screen bg-white font-satoshi">
+        <div className="p-6 max-w-sm w-full bg-gray-50 rounded-lg">
+          <div className="flex justify-center items-center">
+            <span className="text-gray-700 font-semibold">Wait a minute!</span>
+          </div>
+          <p className="mt-3 text-gray-600 text-center">
+            This is a private event. Please
+            <Link
+              to="/login"
+              className="text-blue-500 hover:text-blue-700 underline ml-1"
+            >
+              log in
+            </Link>{" "}
+            to view the details.
+          </p>
+        </div>
       </div>
     );
   }
