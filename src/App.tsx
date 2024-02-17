@@ -5,7 +5,7 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = React.useState(false);
   return (
     <div>
-      <AppRouter />
+      <AppRouter isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
     </div>
   );
 }

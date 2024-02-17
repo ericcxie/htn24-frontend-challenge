@@ -3,7 +3,6 @@ import { BeatLoader } from "react-spinners";
 import EventCard from "../cards/EventCard";
 import SearchBar from "../elements/SearchBar";
 import Header from "../header/Header";
-
 import TabComponent from "../elements/EventsTab";
 
 // Define the structure of the event data
@@ -21,7 +20,12 @@ export type TEvent = {
   related_events: number[];
 };
 
-const Events: React.FC = () => {
+type EventsProps = {
+  isLoggedIn: boolean;
+  setIsLoggedIn: (loggedIn: boolean) => void;
+};
+
+const Events: React.FC<EventsProps> = ({ isLoggedIn, setIsLoggedIn }) => {
   const [eventsData, setEventsData] = useState<TEvent[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState("");
@@ -43,10 +47,7 @@ const Events: React.FC = () => {
   const formatEventTime = (
     timestamp: number
   ): { date: string; time: string } => {
-    // Create a new Date object from the timestamp
     const eventDate = new Date(timestamp);
-
-    // Format the date and time separately
     const date = eventDate.toLocaleDateString("en-US", {
       year: "numeric",
       month: "short",
@@ -61,13 +62,66 @@ const Events: React.FC = () => {
     return { date, time };
   };
 
-  const filteredEvents = eventsData.filter(
-    (event) => event.permission === activeTab
-  );
+  const renderEvents = () => {
+    if (!isLoggedIn && activeTab === "private") {
+      return (
+        <div className="relative">
+          <div className="absolute inset-0 bg-white bg-opacity-75 flex items-start pt-36 justify-center z-10">
+            <a href="/login">
+              <p className="text-lg font-semibold px-4 py-2 rounded-xl bg-gray-500 hover:bg-gray-600 text-white">
+                Please log in to view private events
+              </p>
+            </a>
+          </div>
+          {eventsData
+            .filter((event) => event.permission === "private")
+            .filter((event) =>
+              event.name.toLowerCase().includes(searchQuery.toLocaleLowerCase())
+            )
+            .map((event) => (
+              <div key={event.id} className="blur-sm">
+                <EventCard
+                  id={event.id}
+                  key={event.id}
+                  name={event.name}
+                  startTime={formatEventTime(event.start_time).time}
+                  endTime={formatEventTime(event.end_time).time}
+                  date={formatEventTime(event.start_time).date}
+                  description={event.description}
+                  speakers={event.speakers
+                    .map((speaker) => speaker.name)
+                    .join(", ")}
+                  eventType={event.event_type}
+                />
+              </div>
+            ))}
+        </div>
+      );
+    }
+
+    return eventsData
+      .filter((event) => event.permission === activeTab)
+      .filter((event) =>
+        event.name.toLowerCase().includes(searchQuery.toLocaleLowerCase())
+      )
+      .map((event) => (
+        <EventCard
+          id={event.id}
+          key={event.id}
+          name={event.name}
+          startTime={formatEventTime(event.start_time).time}
+          endTime={formatEventTime(event.end_time).time}
+          date={formatEventTime(event.start_time).date}
+          description={event.description}
+          speakers={event.speakers.map((speaker) => speaker.name).join(", ")}
+          eventType={event.event_type}
+        />
+      ));
+  };
 
   return (
     <div className="bg-white min-h-screen">
-      <Header />
+      <Header isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
       <div className="flex flex-col items-center py-3">
         <div className="w-full max-w-4xl px-6 rounded-lg">
           <h1 className="text-4xl font-bold font-satoshiBold text-black pt-5 pb-2 border-b border-gray-200">
@@ -84,26 +138,7 @@ const Events: React.FC = () => {
                   <BeatLoader color="#C4CDCF" loading={loading} size={15} />
                 </div>
               ) : (
-                filteredEvents
-                  .filter((event) =>
-                    event.name.toLowerCase().includes(searchQuery.toLowerCase())
-                  )
-                  .sort((a, b) => a.start_time - b.start_time)
-                  .map((event) => (
-                    <EventCard
-                      id={event.id}
-                      key={event.id}
-                      name={event.name}
-                      startTime={formatEventTime(event.start_time).time}
-                      endTime={formatEventTime(event.end_time).time}
-                      date={formatEventTime(event.start_time).date}
-                      description={event.description}
-                      speakers={event.speakers
-                        .map((speaker) => speaker.name)
-                        .join(", ")}
-                      eventType={event.event_type}
-                    />
-                  ))
+                renderEvents()
               )}
             </div>
           </div>
