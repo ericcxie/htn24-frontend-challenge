@@ -21,7 +21,7 @@ const Header: React.FC<HeaderProps> = ({ isLoggedIn, setIsLoggedIn }) => {
 
   return (
     <header className="flex justify-between items-center p-4 md:px-10 bg-white font-satoshiMedium border-b border-gray-300 text-black">
-      <Link to="/" className="text-2xl font-bold flex items-center">
+      <Link to="/" className="text-xl md:text-2xl font-bold flex items-center">
         <BsGlobeAmericas className="mr-2" />
         Hackathon Global Inc.™
       </Link>

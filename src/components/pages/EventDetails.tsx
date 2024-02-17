@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import Aos from "aos";
+import "aos/dist/aos.css";
 import { FaMicrophoneAlt } from "react-icons/fa";
 import { FaPaintbrush, FaScrewdriverWrench } from "react-icons/fa6";
 import { Link, useParams } from "react-router-dom";
@@ -57,6 +59,10 @@ const EventDetails: React.FC<EventsProps> = ({ isLoggedIn, setIsLoggedIn }) => {
   const [relatedEventsData, setRelatedEventsData] = useState<TEvent[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState("");
+
+  useEffect(() => {
+    Aos.init({ duration: 800 });
+  }, []);
 
   useEffect(() => {
     setIsLoading(true);
@@ -132,7 +138,11 @@ const EventDetails: React.FC<EventsProps> = ({ isLoggedIn, setIsLoggedIn }) => {
   return (
     <div className="bg-white min-h-screen">
       <Header isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
-      <div className="flex flex-col items-center py-10 font-satoshiMedium">
+      <div
+        data-aos="fade-up"
+        data-aos-once
+        className="flex flex-col items-center py-10 font-satoshiMedium"
+      >
         <div className="w-full max-w-4xl px-6 rounded-lg bg-gray-50">
           <h1 className="text-4xl font-bold font-satoshiBold text-black py-5 border-b border-gray-200">
             {eventData.name}

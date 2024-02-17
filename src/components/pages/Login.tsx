@@ -1,7 +1,8 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import Aos from "aos";
+import "aos/dist/aos.css";
+import React, { useEffect, useState } from "react";
 import { BsGlobeAmericas } from "react-icons/bs";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 interface LoginProps {
   setIsLoggedIn: (loggedIn: boolean) => void;
@@ -27,9 +28,17 @@ const Login: React.FC<LoginProps> = ({ setIsLoggedIn }) => {
     }
   };
 
+  useEffect(() => {
+    Aos.init({ duration: 800 });
+  }, []);
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-white py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-md w-full space-y-8">
+      <div
+        data-aos="fade-up"
+        data-aos-once
+        className="max-w-md w-full space-y-8"
+      >
         <div>
           <Link to="/">
             <BsGlobeAmericas className="mx-auto h-8 w-auto" />
