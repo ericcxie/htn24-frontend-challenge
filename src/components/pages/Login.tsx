@@ -11,6 +11,7 @@ interface LoginProps {
 const Login: React.FC<LoginProps> = ({ setIsLoggedIn }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
   const validEmail = "johnsmith@gmail.com";
   const validPassword = "password";
@@ -25,7 +26,7 @@ const Login: React.FC<LoginProps> = ({ setIsLoggedIn }) => {
       navigate("/");
     } else {
       // Handle login failure (e.g., show an error message)
-      alert("Invalid credentials"); // Simple alert, replace with a better error handling
+      setErrorMessage("Invalid credentials");
     }
   };
 
@@ -97,6 +98,9 @@ const Login: React.FC<LoginProps> = ({ setIsLoggedIn }) => {
               </span>
             </button>
           </div>
+          {errorMessage && (
+            <p className="text-red-500 text-center">{errorMessage}</p>
+          )}
         </form>
       </div>
     </div>
