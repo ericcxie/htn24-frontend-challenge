@@ -33,7 +33,7 @@ const Login: React.FC<LoginProps> = ({ setIsLoggedIn }) => {
   }, []);
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-white py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen flex items-center justify-center bg-white py-12 px-10 lg:px-8">
       <div
         data-aos="fade-up"
         data-aos-once
