@@ -1,4 +1,4 @@
-# Project Writeup: HTN24 Frontend Challenge
+# Project Writeup: Hack The North 2024 Frontend Developer Challenge
 
 ## 1. Development Process
 
