@@ -21,6 +21,7 @@ const Login: React.FC<LoginProps> = ({ setIsLoggedIn }) => {
     e.preventDefault();
     if (email === validEmail && password === validPassword) {
       setIsLoggedIn(true);
+      localStorage.setItem("isLoggedIn", "true");
       navigate("/");
     } else {
       // Handle login failure (e.g., show an error message)

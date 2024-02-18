@@ -16,6 +16,7 @@ const Header: React.FC<HeaderProps> = ({ isLoggedIn, setIsLoggedIn }) => {
 
   const handleLogout = () => {
     setIsLoggedIn(false);
+    localStorage.setItem("isLoggedIn", "false");
     navigate("/");
   };
 

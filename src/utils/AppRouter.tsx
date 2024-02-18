@@ -4,6 +4,7 @@ import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import EventDetails from "../components/pages/EventDetails";
 import Events from "../components/pages/Events";
 import Login from "../components/pages/Login";
+import PageNotFound from "../components/pages/PageNotFound";
 
 interface AppRouterProps {
   isLoggedIn: boolean;
@@ -33,6 +34,7 @@ const AppRouter: React.FC<AppRouterProps> = ({ isLoggedIn, setIsLoggedIn }) => {
             />
           }
         />
+        <Route path="*" element={<PageNotFound />} />
       </Routes>
     </Router>
   );

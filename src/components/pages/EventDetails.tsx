@@ -1,13 +1,15 @@
-import React, { useEffect, useState } from "react";
 import Aos from "aos";
 import "aos/dist/aos.css";
+import React, { useEffect, useState } from "react";
 import { FaMicrophoneAlt } from "react-icons/fa";
 import { FaPaintbrush, FaScrewdriverWrench } from "react-icons/fa6";
 import { Link, useParams } from "react-router-dom";
-import DownloadICSButton from "../buttons/DownloadICSButton";
-import Header from "../header/Header";
 import { BeatLoader } from "react-spinners";
+import DownloadICSButton from "../buttons/DownloadICSButton";
 import RelatedEventCard from "../cards/RelatedEventsCard";
+import Header from "../header/Header";
+
+import PrivateEventsLoginPrompt from "../elements/PrivateEventsLoginPrompt";
 
 export type TEvent = {
   id: number;
@@ -114,19 +116,7 @@ const EventDetails: React.FC<EventsProps> = ({ isLoggedIn, setIsLoggedIn }) => {
   }
 
   if (!isLoggedIn && eventData.permission === "private") {
-    return (
-      <div className="flex flex-col justify-center items-center h-screen bg-white font-satoshi">
-        <div className="p-6 mx-5 max-w-sm bg-gray-50 rounded-lg">
-          <p className="mt-3 text-gray-600 text-center">
-            This is a private event. Please
-            <Link to="/login" className="hover:text-purple-600 underline ml-1">
-              log in
-            </Link>{" "}
-            to view the details.
-          </p>
-        </div>
-      </div>
-    );
+    return <PrivateEventsLoginPrompt />;
   }
 
   return (

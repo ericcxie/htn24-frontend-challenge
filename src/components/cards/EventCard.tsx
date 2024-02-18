@@ -41,10 +41,10 @@ const EventCard: React.FC<EventCardProps> = ({
   };
 
   return (
-    <div className="flex flex-col sm:flex-row items-center bg-gray-50 p-4 rounded-lg shadow-sm">
+    <div className="flex flex-col md:flex-row items-center bg-gray-50 p-4 rounded-lg shadow-sm">
       {/* Square with date and time */}
       <div
-        className={`flex flex-col justify-center items-center text-white py-2 mt-3 md:mt-0 md:p-4 w-full md:w-auto rounded-lg min-w-32 md:h-32 order-last sm:order-none ${
+        className={`flex flex-col justify-center items-center text-white py-2 mt-3 md:mt-0 md:p-4 w-full md:w-auto rounded-lg min-w-32 md:h-32 order-last md:order-none ${
           eventType === "workshop"
             ? "bg-[#4CBB17]"
             : eventType === "tech_talk"
@@ -70,7 +70,7 @@ const EventCard: React.FC<EventCardProps> = ({
       </div>
 
       {/* Event details */}
-      <div className="flex flex-col flex-grow justify-between sm:ml-4 order-first sm:order-none">
+      <div className="flex flex-col flex-grow justify-between md:ml-4 order-first md:order-none">
         <div className="">
           <Link
             to={`/${id}/${encodeURIComponent(name.replace(/\s+/g, "_"))}`}
