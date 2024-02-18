@@ -9,6 +9,8 @@
 - **Design Choices**:
   (Detail any specific design decisions, such as UI/UX considerations, responsive design, or any particular theme followed.)
 
+![HTN_Challenge drawio](https://github.com/ericcxie/htn24-frontend-challenge/assets/66566975/fc116251-c4d3-4791-9a76-c9e6cb2a28b1)
+
 ### Tools and Technologies
 
 - **Technology Stack**:
@@ -17,6 +19,7 @@
 <img src="https://img.shields.io/badge/Typescript-%2320232a.svg?style=for-the-badge&logo=typescript&logoColor=blue"/>
 <img src="https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white"/>
 <img src="https://img.shields.io/badge/Vercel-000000.svg?style=for-the-badge&logo=Vercel&logoColor=white"/>
+
 
 ### Challenges and Solutions
 
