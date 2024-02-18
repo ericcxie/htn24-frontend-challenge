@@ -106,6 +106,7 @@ const Events: React.FC<EventsProps> = ({ isLoggedIn, setIsLoggedIn }) => {
       .filter((event) =>
         event.name.toLowerCase().includes(searchQuery.toLocaleLowerCase())
       )
+      .sort((a, b) => a.start_time - b.start_time)
       .map((event) => (
         <EventCard
           id={event.id}
