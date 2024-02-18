@@ -2,6 +2,7 @@ import React from "react";
 import { FaMicrophoneAlt } from "react-icons/fa";
 import { FaPaintbrush, FaScrewdriverWrench } from "react-icons/fa6";
 import { Link } from "react-router-dom";
+import { start } from "repl";
 
 type EventCardProps = {
   id: number;
@@ -43,7 +44,7 @@ const EventCard: React.FC<EventCardProps> = ({
     <div className="flex flex-col sm:flex-row items-center bg-gray-50 p-4 rounded-lg shadow-sm">
       {/* Square with date and time */}
       <div
-        className={`flex flex-col justify-center items-center text-white p-4 rounded-lg min-w-32 h-32 ${
+        className={`flex flex-col justify-center items-center text-white py-2 mt-3 md:mt-0 md:p-4 w-full md:w-auto rounded-lg min-w-32 md:h-32 order-last sm:order-none ${
           eventType === "workshop"
             ? "bg-[#4CBB17]"
             : eventType === "tech_talk"
@@ -51,16 +52,25 @@ const EventCard: React.FC<EventCardProps> = ({
             : "bg-[#9966CC]"
         }`}
       >
-        <span className="text-md font-satoshiMedium mb-2">{date}</span>
-        <span className="text-xl font-satoshiBold leading-none">
+        <span className="text-md font-satoshiMedium md:mb-2">{date}</span>
+
+        <span className="hidden md:inline text-xl font-satoshiBold leading-none">
           {startTime}
         </span>
-        <span className="text-xl font-satoshiBold leading-none">-</span>
-        <span className="text-xl font-satoshiBold leading-none">{endTime}</span>
+        <span className="hidden md:inline text-xl font-satoshiBold leading-none">
+          -
+        </span>
+        <span className="hidden md:inline text-xl font-satoshiBold leading-none">
+          {endTime}
+        </span>
+
+        <span className="md:hidden text-xl font-satoshiBold leading-none mb-1">
+          {startTime} - {endTime}
+        </span>
       </div>
 
       {/* Event details */}
-      <div className="flex flex-col ml-4 flex-grow justify-between">
+      <div className="flex flex-col flex-grow justify-between sm:ml-4 order-first sm:order-none">
         <div className="">
           <Link
             to={`/${id}/${encodeURIComponent(name.replace(/\s+/g, "_"))}`}
