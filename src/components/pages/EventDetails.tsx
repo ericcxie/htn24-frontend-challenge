@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import Aos from "aos";
+import "aos/dist/aos.css";
 import { FaMicrophoneAlt } from "react-icons/fa";
 import { FaPaintbrush, FaScrewdriverWrench } from "react-icons/fa6";
 import { Link, useParams } from "react-router-dom";
@@ -59,6 +61,10 @@ const EventDetails: React.FC<EventsProps> = ({ isLoggedIn, setIsLoggedIn }) => {
   const [error, setError] = useState("");
 
   useEffect(() => {
+    Aos.init({ duration: 800 });
+  }, []);
+
+  useEffect(() => {
     setIsLoading(true);
     fetch(`https://api.hackthenorth.com/v3/events/${id}`)
       .then((response) => {
@@ -110,16 +116,10 @@ const EventDetails: React.FC<EventsProps> = ({ isLoggedIn, setIsLoggedIn }) => {
   if (!isLoggedIn && eventData.permission === "private") {
     return (
       <div className="flex flex-col justify-center items-center h-screen bg-white font-satoshi">
-        <div className="p-6 max-w-sm w-full bg-gray-50 rounded-lg">
-          <div className="flex justify-center items-center">
-            <span className="text-gray-700 font-semibold">Wait a minute!</span>
-          </div>
+        <div className="p-6 mx-5 max-w-sm bg-gray-50 rounded-lg">
           <p className="mt-3 text-gray-600 text-center">
             This is a private event. Please
-            <Link
-              to="/login"
-              className="text-blue-500 hover:text-blue-700 underline ml-1"
-            >
+            <Link to="/login" className="hover:text-purple-600 underline ml-1">
               log in
             </Link>{" "}
             to view the details.
@@ -132,9 +132,13 @@ const EventDetails: React.FC<EventsProps> = ({ isLoggedIn, setIsLoggedIn }) => {
   return (
     <div className="bg-white min-h-screen">
       <Header isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
-      <div className="flex flex-col items-center py-10 font-satoshiMedium">
-        <div className="w-full max-w-4xl px-6 rounded-lg bg-gray-50">
-          <h1 className="text-4xl font-bold font-satoshiBold text-black py-5 border-b border-gray-200">
+      <div
+        data-aos="fade-up"
+        data-aos-once
+        className="flex flex-col items-center mx-4 py-10 font-satoshiMedium"
+      >
+        <div className="w-full max-w-4xl px-4 md:px-6 rounded-lg bg-gray-50">
+          <h1 className="text-3xl md:text-4xl font-bold font-satoshiBold text-black py-5 border-b border-gray-200">
             {eventData.name}
           </h1>
 
@@ -187,24 +191,39 @@ const EventDetails: React.FC<EventsProps> = ({ isLoggedIn, setIsLoggedIn }) => {
           {relatedEventsData.length > 0 && (
             <div className="my-2">
               <h2 className="font-semibold">Related Events:</h2>
-              <div className="flex flex-wrap space-x-2 mt-2 mb-4">
-                {relatedEventsData.map((event) => (
-                  <Link
-                    to={`/${event.id}/${encodeURIComponent(
-                      event.name.replace(/\s+/g, "_")
-                    )}`}
-                    key={event.id}
-                  >
-                    <RelatedEventCard
+              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 mt-2 mb-4">
+                {relatedEventsData.map((event) =>
+                  isLoggedIn || event.permission !== "private" ? (
+                    <Link
+                      to={`/${event.id}/${encodeURIComponent(
+                        event.name.replace(/\s+/g, "_")
+                      )}`}
                       key={event.id}
-                      eventName={event.name}
-                      eventType={formatEventType(event.event_type)}
-                      date={formatEventTime(event.start_time).date}
-                      startTime={formatEventTime(event.start_time).time}
-                      endTime={formatEventTime(event.end_time).time}
-                    />
-                  </Link>
-                ))}
+                    >
+                      <RelatedEventCard
+                        eventName={event.name}
+                        eventType={formatEventType(event.event_type)}
+                        date={formatEventTime(event.start_time).date}
+                        startTime={formatEventTime(event.start_time).time}
+                        endTime={formatEventTime(event.end_time).time}
+                        permission={event.permission}
+                        isLoggedIn={isLoggedIn}
+                      />
+                    </Link>
+                  ) : (
+                    <div key={event.id} className="cursor-not-allowed">
+                      <RelatedEventCard
+                        eventName={event.name}
+                        eventType={formatEventType(event.event_type)}
+                        date={formatEventTime(event.start_time).date}
+                        startTime={formatEventTime(event.start_time).time}
+                        endTime={formatEventTime(event.end_time).time}
+                        permission={event.permission}
+                        isLoggedIn={isLoggedIn}
+                      />
+                    </div>
+                  )
+                )}
               </div>
             </div>
           )}
