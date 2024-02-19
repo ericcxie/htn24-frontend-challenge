@@ -65,5 +65,14 @@ Moreover, the current implementation wouldn't scale too well for thousands of us
 
 TBD...
 
+## Demo Account
+
+You can sign in using the following account credentials:
+
+```
+Email address: johnsmith@gmail.com
+Password: password
+```
+
 ![Screenshot 2024-02-18 at 9 08 20 PM](https://github.com/ericcxie/htn24-frontend-challenge/assets/66566975/fba66053-b39e-4002-aef6-bac18638011d)
 
