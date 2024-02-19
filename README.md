@@ -5,12 +5,12 @@
 ### Planning and Design
 
 **Initial Approach**:
-My initial approach before I started coding anything was to thoroughly understand the requirements of the project. I began by writing down all the essential requirements and various edge cases/considerations I needed to keep in mind. For example, what happens when an unauthorized user tries to access a private event? or what happens when an event field is empty? Only after fully understanding the requirements did I began to design the application.
+My initial approach before I started coding anything was to thoroughly understand the requirements of the project. I began by writing down all the essential requirements and various edge cases/considerations I needed to keep in mind. For example, what happens when an unauthorized user tries to access a private event? or what happens when an event field is empty? Only after fully understanding the requirements did I begin to design the application.
 
 **Design Choices**:
-For the design part, I began by browsing different design websites like Dribble to look for inspirations I can use in my own project. This process is super important for my because it helps me build a mental image of the final application and subsequently helps me design the user flow as well. A critical design principle that guided my design/structure was simplicity. Hacker's are already sleep-deprived and stressed so the last thing they need is a messy and confusing UI :D.
+For the design part, I began by browsing different design websites like Dribble to look for inspirations I could use in my own project. This process is super important for me because it helps me build a mental image of the final application and subsequently helps me design the user flow as well. A critical design principle that guided my design/structure was simplicity. Hackers are already sleep-deprived and stressed so the last thing they need is a messy and confusing UI :D.
 
-After the UI/UX was planned, I used Draw.io to build a user flow chart that helped me plan out the different pages and the components on each of the page. This step is crucial because it makes the development process a lot more streamlined and less error-prone.
+After the UI/UX was planned, I used Draw.io to build a user flow chart that helped me plan out the different pages and the components on each of the pages. This step is crucial because it makes the development process a lot more streamlined and less error-prone.
 
 ![HTN_Challenge drawio](https://github.com/ericcxie/htn24-frontend-challenge/assets/66566975/fc116251-c4d3-4791-9a76-c9e6cb2a28b1)
 
@@ -33,7 +33,7 @@ One major challenge I faced while developing involved making sequential API call
 ### Code Highlights
 
 **Proud Achievements**:
-One area of my code that I am proud of is its modularity given the time constraint that I was under. When I was development, I tried to make a conscious effort to encapsulate components into its own files whenever feasible. This helps improve the maintainability and organization of the code. Moreover, it enhances readability for other developers who may also work on this codebase in the future.
+One area of my code that I am proud of is its modularity given the time constraint that I was under. Throughout the development process, I tried to make a conscious effort to encapsulate components into their own files whenever feasible. This helps improve the maintainability and organization of the code. Moreover, it enhances readability for other developers who may also work on this codebase in the future.
 
 ## 2. Extending the Application
 
@@ -47,7 +47,7 @@ If I were to extend this application to become a fully functional product, there
 - Voice support
 - High-contrast UI option
 
-These features are crucial in ensuring that everyone is able to access the information easily. Some other features for the applications would include:
+These features are crucial in ensuring that everyone can access the information easily. Some other features for the applications would include:
 
 - Filter events
 - Save events to custom lists
@@ -57,10 +57,13 @@ These features are crucial in ensuring that everyone is able to access the infor
 ### Performance and Scalability
 
 **Optimization Strategies**:
-In terms of scalability and considerations to make when there are thousands of users, I would focus a lot on security since that is arguably one of the most important things for users. This means improving how users are authenticated and where their login information are saved. Realistically, there should be some sort of encryption that would be implemented for user data so that this information doesn't get leaked to hackers.
+In terms of scalability and considerations to make when there are thousands of users, I would focus a lot on security since that is arguably one of the most important things for users. This means improving how users are authenticated and where their login information is saved. Realistically, there should be some sort of encryption that would be implemented for user data so that this information doesn't get leaked to hackers.
 
-Moreover, the current implementation wouldn't scale too well for thousands of users. For example, a design choice I settled with given the time constraint was keeping the user's login state inside of `App.tsx` as this is straightforward and easy to implement. However, as the application grows, this approach can lead to "prop drilling" where you pass the state down through multiple components making the code harder to maintain. A more scalable solution would be to implement something like an AuthContext as it allows you to easily share state across multiple components without prop drilling.
+Moreover, the current implementation wouldn't scale too well for thousands of users. For example, a design choice I settled with given the time constraint was keeping the user's login state inside of `App.tsx` as this is straightforward to implement. However, as the application grows, this approach can lead to "prop drilling" where you pass the state down through multiple components making the code harder to maintain. A more scalable solution would be to implement something like an AuthContext as it allows you to easily share state across multiple components without prop drilling.
 
 ## 3. Additional Thoughts
 
 TBD...
+
+![Screenshot 2024-02-18 at 9 08 20 PM](https://github.com/ericcxie/htn24-frontend-challenge/assets/66566975/fba66053-b39e-4002-aef6-bac18638011d)
+
