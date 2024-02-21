@@ -8,6 +8,7 @@ import { BeatLoader } from "react-spinners";
 import DownloadICSButton from "../buttons/DownloadICSButton";
 import RelatedEventCard from "../cards/RelatedEventsCard";
 import Header from "../header/Header";
+import { FiExternalLink } from "react-icons/fi";
 
 import PrivateEventsLoginPrompt from "../elements/PrivateEventsLoginPrompt";
 
@@ -128,9 +129,14 @@ const EventDetails: React.FC<EventsProps> = ({ isLoggedIn, setIsLoggedIn }) => {
         className="flex flex-col items-center mx-4 py-10 font-satoshiMedium"
       >
         <div className="w-full max-w-4xl px-4 md:px-6 rounded-lg bg-gray-50">
-          <h1 className="text-3xl md:text-4xl font-bold font-satoshiBold text-black py-5 border-b border-gray-200">
-            {eventData.name}
-          </h1>
+          <Link
+            to={isLoggedIn ? eventData.private_url : eventData.public_url}
+            target="_blank"
+          >
+            <h1 className="text-3xl md:text-4xl font-bold font-satoshiBold text-black py-5 border-b border-gray-200 hover:underline">
+              {eventData.name}
+            </h1>
+          </Link>
 
           <div className="flex flex-row justify-between items-start mt-3">
             <div className="flex flex-col justify-center">
@@ -154,13 +160,19 @@ const EventDetails: React.FC<EventsProps> = ({ isLoggedIn, setIsLoggedIn }) => {
                 {formatEventTime(eventData.end_time).time}
               </p>
             </div>
-            <div>
+            <div className="flex flex-col items-end space-y-3">
               <DownloadICSButton
                 title={eventData.name}
                 description={eventData.description}
                 start={eventData.start_time}
                 end={eventData.end_time}
               />
+              <Link
+                to={isLoggedIn ? eventData.private_url : eventData.public_url}
+                target="_blank"
+              >
+                <FiExternalLink size={25} />
+              </Link>
             </div>
           </div>
           <div className="my-2">

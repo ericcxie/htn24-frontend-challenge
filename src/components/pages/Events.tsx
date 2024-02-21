@@ -94,6 +94,7 @@ const Events: React.FC<EventsProps> = ({ isLoggedIn, setIsLoggedIn }) => {
                     .map((speaker) => speaker.name)
                     .join(", ")}
                   eventType={event.event_type}
+                  eventLink={event.public_url}
                 />
               </div>
             ))}
@@ -118,6 +119,7 @@ const Events: React.FC<EventsProps> = ({ isLoggedIn, setIsLoggedIn }) => {
           description={event.description}
           speakers={event.speakers.map((speaker) => speaker.name).join(", ")}
           eventType={event.event_type}
+          eventLink={isLoggedIn ? event.private_url : event.public_url}
         />
       ));
   };

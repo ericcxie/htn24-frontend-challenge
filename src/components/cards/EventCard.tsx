@@ -1,8 +1,8 @@
 import React from "react";
 import { FaMicrophoneAlt } from "react-icons/fa";
 import { FaPaintbrush, FaScrewdriverWrench } from "react-icons/fa6";
+import { FiExternalLink } from "react-icons/fi";
 import { Link } from "react-router-dom";
-import { start } from "repl";
 
 type EventCardProps = {
   id: number;
@@ -13,6 +13,7 @@ type EventCardProps = {
   description?: string;
   speakers: string;
   eventType: string;
+  eventLink: string;
 };
 
 const EventCard: React.FC<EventCardProps> = ({
@@ -24,6 +25,7 @@ const EventCard: React.FC<EventCardProps> = ({
   description,
   speakers,
   eventType,
+  eventLink,
 }) => {
   const limitDescription = (desc: string, limit: number) => {
     const words = desc.split(" ");
@@ -41,7 +43,7 @@ const EventCard: React.FC<EventCardProps> = ({
   };
 
   return (
-    <div className="flex flex-col md:flex-row items-center bg-gray-50 p-4 rounded-lg shadow-sm">
+    <div className="relative flex flex-col md:flex-row items-center bg-gray-50 p-4 rounded-lg shadow-sm">
       {/* Square with date and time */}
       <div
         className={`flex flex-col justify-center items-center text-white py-2 mt-3 md:mt-0 md:p-4 w-full md:w-auto rounded-lg min-w-32 md:h-32 order-last md:order-none ${
@@ -91,6 +93,12 @@ const EventCard: React.FC<EventCardProps> = ({
               {limitDescription(description, 25)}
             </p>
           )}
+
+          <div className="absolute bottom-22 right-3 md:bottom-2 md:right-2">
+            <Link to={eventLink} target="_blank">
+              <FiExternalLink size={23} />
+            </Link>
+          </div>
 
           {speakers && (
             <p className="text-satoshi font-satoshiMedium text-gray-500 mt-1">
