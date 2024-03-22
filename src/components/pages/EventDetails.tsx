@@ -167,12 +167,6 @@ const EventDetails: React.FC<EventsProps> = ({ isLoggedIn, setIsLoggedIn }) => {
                 start={eventData.start_time}
                 end={eventData.end_time}
               />
-              <Link
-                to={isLoggedIn ? eventData.private_url : eventData.public_url}
-                target="_blank"
-              >
-                <FiExternalLink size={25} />
-              </Link>
             </div>
           </div>
           <div className="my-2">
